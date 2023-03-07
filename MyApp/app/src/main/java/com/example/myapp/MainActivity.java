@@ -4,12 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
+import android.widget.EditText;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    TextView bookId, bookTitle, bookISBN, bookAuthor, bookDescription, bookPrice;
+    EditText bookId, bookTitle, bookISBN, bookAuthor, bookDescription, bookPrice;
 
 
     @Override
@@ -18,28 +18,31 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         bookId = findViewById(R.id.bookID);
-        bookTitle = findViewById(R.id.bookTitle);
         bookISBN = findViewById(R.id.bookISBN);
+        bookTitle = findViewById(R.id.bookTitle);
         bookAuthor = findViewById(R.id.bookAuthor);
         bookDescription = findViewById(R.id.bookDescription);
         bookPrice = findViewById(R.id.bookPrice);
+
     }
 
     public void showToast(View view){
-        String toastString = "Successfully added '" + bookTitle.getText().toString() + " (RM" + bookPrice.getText().toString() + ")'.";
+        Double bookPriceDbl = Double.parseDouble(bookPrice.getText().toString());
+        String bookPriceStr = String.format("%.2f", bookPriceDbl);
+        String toastString = "Successfully added book '" + bookTitle.getText().toString() + "' at price (RM" + bookPriceStr + ").";
         Toast myToast = Toast.makeText(this, toastString, Toast.LENGTH_LONG);
         myToast.show();
-        clearInput(view);
+//        clearInput(view);
     }
 
     public void clearInput(View view){
         //clear the input field
         bookId.setText("");
+//        bookId.getText().clear();
         bookTitle.setText("");
         bookISBN.setText("");
         bookAuthor.setText("");
         bookDescription.setText("");
         bookPrice.setText("");
-
     }
 }
