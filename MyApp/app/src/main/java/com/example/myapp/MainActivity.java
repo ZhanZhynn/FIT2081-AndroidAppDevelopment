@@ -23,7 +23,6 @@ public class MainActivity extends AppCompatActivity {
         bookAuthor = findViewById(R.id.bookAuthor);
         bookDescription = findViewById(R.id.bookDescription);
         bookPrice = findViewById(R.id.bookPrice);
-
     }
 
     public void showToast(View view){
@@ -44,5 +43,12 @@ public class MainActivity extends AppCompatActivity {
         bookAuthor.setText("");
         bookDescription.setText("");
         bookPrice.setText("");
+    }
+
+    public void doublePrice(View view){
+        Double bookPriceDbl = Double.parseDouble(bookPrice.getText().toString());
+        bookPriceDbl = bookPriceDbl * 2;
+        String bookPriceStr = String.format("%.2f", bookPriceDbl);
+        bookPrice.setText(bookPriceStr);
     }
 }
