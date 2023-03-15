@@ -12,6 +12,7 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
 
     EditText bookId, bookTitle, bookISBN, bookAuthor, bookDescription, bookPrice;
+    String bookIdStr, bookTitleStr, bookISBNStr, bookAuthorStr, bookDescriptionStr, bookPriceStrVar;
 
 
     @Override
@@ -35,16 +36,24 @@ public class MainActivity extends AppCompatActivity {
         myToast.show();
 //        clearInput(view);
 
+        //save last inserted book with shared preference
+//        SharedPreferences sharedPreferences = getSharedPreferences("book", MODE_PRIVATE);
+//        SharedPreferences.Editor editor = sharedPreferences.edit();
+//        editor.putString("bookId", bookId.getText().toString());
+//        editor.putString("bookTitle", bookTitle.getText().toString());
+//        editor.putString("bookISBN", bookISBN.getText().toString());
+//        editor.putString("bookAuthor", bookAuthor.getText().toString());
+//        editor.putString("bookDescription", bookDescription.getText().toString());
+//        editor.putString("bookPrice", bookPrice.getText().toString());
+//        editor.commit();
+
         //save last inserted book
-        SharedPreferences sharedPreferences = getSharedPreferences("book", MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("bookId", bookId.getText().toString());
-        editor.putString("bookTitle", bookTitle.getText().toString());
-        editor.putString("bookISBN", bookISBN.getText().toString());
-        editor.putString("bookAuthor", bookAuthor.getText().toString());
-        editor.putString("bookDescription", bookDescription.getText().toString());
-        editor.putString("bookPrice", bookPrice.getText().toString());
-        editor.commit();
+        bookIdStr = bookId.getText().toString();
+        bookTitleStr = bookTitle.getText().toString();
+        bookISBNStr = bookISBN.getText().toString();
+        bookAuthorStr = bookAuthor.getText().toString();
+        bookDescriptionStr = bookDescription.getText().toString();
+        bookPriceStrVar = bookPriceStr;
     }
 
     public void clearInput(View view){
@@ -109,17 +118,34 @@ public class MainActivity extends AppCompatActivity {
         bookAuthor.setText(sharedPreferences.getString("bookAuthor", ""));
         bookDescription.setText(sharedPreferences.getString("bookDescription", ""));
         bookPrice.setText(sharedPreferences.getString("bookPrice", ""));
+
+        //save last inserted book
+        bookIdStr = bookId.getText().toString();
+        bookTitleStr = bookTitle.getText().toString();
+        bookISBNStr = bookISBN.getText().toString();
+        bookAuthorStr = bookAuthor.getText().toString();
+        bookDescriptionStr = bookDescription.getText().toString();
+        bookPriceStrVar = bookPrice.getText().toString();
+
+
     }
 
     //Task 3: Add a new button that is responsible for reloading the save attributes.
     public void reload(View view){
         //load the last book added to the system
-        SharedPreferences sharedPreferences = getSharedPreferences("book", MODE_PRIVATE);
-        bookId.setText(sharedPreferences.getString("bookId", ""));
-        bookTitle.setText(sharedPreferences.getString("bookTitle", ""));
-        bookISBN.setText(sharedPreferences.getString("bookISBN", ""));
-        bookAuthor.setText(sharedPreferences.getString("bookAuthor", ""));
-        bookDescription.setText(sharedPreferences.getString("bookDescription", ""));
-        bookPrice.setText(sharedPreferences.getString("bookPrice", ""));
+//        SharedPreferences sharedPreferences = getSharedPreferences("book", MODE_PRIVATE);
+//        bookId.setText(sharedPreferences.getString("bookId", ""));
+//        bookTitle.setText(sharedPreferences.getString("bookTitle", ""));
+//        bookISBN.setText(sharedPreferences.getString("bookISBN", ""));
+//        bookAuthor.setText(sharedPreferences.getString("bookAuthor", ""));
+//        bookDescription.setText(sharedPreferences.getString("bookDescription", ""));
+//        bookPrice.setText(sharedPreferences.getString("bookPrice", ""));
+
+        bookId.setText(bookIdStr);
+        bookTitle.setText(bookTitleStr);
+        bookISBN.setText(bookISBNStr);
+        bookAuthor.setText(bookAuthorStr);
+        bookDescription.setText(bookDescriptionStr);
+        bookPrice.setText(bookPriceStrVar);
     }
 }
