@@ -160,10 +160,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //W3 extra task: set isbn to 00112233 in shared preferences
-    public void setISBN(View view){
-        SharedPreferences sharedPreferences = getSharedPreferences("book", MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("bookISBN", "00112233");
-        editor.commit();
-    }
+//    public void setISBN(View view){
+//        SharedPreferences sharedPreferences = getSharedPreferences("book", MODE_PRIVATE);
+//        SharedPreferences.Editor editor = sharedPreferences.edit();
+//        editor.putString("bookISBN", "00112233");
+//        editor.commit();
+//    }
 }
