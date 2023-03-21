@@ -99,8 +99,9 @@
             android:hint="Description"
             android:inputType="textLongMessage"
             app:layout_constraintBottom_toTopOf="@+id/bookPrice"
-            app:layout_constraintTop_toBottomOf="@+id/bookAuthor"
-            tools:layout_editor_absoluteX="162dp" />
+            app:layout_constraintEnd_toEndOf="@+id/bookAuthor"
+            app:layout_constraintStart_toStartOf="@+id/bookAuthor"
+            app:layout_constraintTop_toBottomOf="@+id/bookAuthor" />
 
         <EditText
             android:id="@+id/bookISBN"
@@ -110,8 +111,9 @@
             android:hint="ISBN"
             android:inputType="textPersonName"
             app:layout_constraintBottom_toTopOf="@+id/bookTitle"
-            app:layout_constraintTop_toBottomOf="@+id/bookID"
-            tools:layout_editor_absoluteX="162dp" />
+            app:layout_constraintEnd_toEndOf="@+id/bookID"
+            app:layout_constraintStart_toStartOf="@+id/bookID"
+            app:layout_constraintTop_toBottomOf="@+id/bookID" />
 
         <EditText
             android:id="@+id/bookPrice"
@@ -121,8 +123,9 @@
             android:hint="Price"
             android:inputType="number|numberDecimal"
             app:layout_constraintBottom_toTopOf="@+id/guideline2"
-            app:layout_constraintTop_toBottomOf="@+id/bookDescription"
-            tools:layout_editor_absoluteX="162dp" />
+            app:layout_constraintEnd_toEndOf="@+id/bookDescription"
+            app:layout_constraintStart_toStartOf="@+id/bookDescription"
+            app:layout_constraintTop_toBottomOf="@+id/bookDescription" />
 
         <EditText
             android:id="@+id/bookTitle"
@@ -132,8 +135,9 @@
             android:hint="Title"
             android:inputType="text"
             app:layout_constraintBottom_toTopOf="@+id/bookAuthor"
-            app:layout_constraintTop_toBottomOf="@+id/bookISBN"
-            tools:layout_editor_absoluteX="162dp" />
+            app:layout_constraintEnd_toEndOf="@+id/bookISBN"
+            app:layout_constraintStart_toStartOf="@+id/bookISBN"
+            app:layout_constraintTop_toBottomOf="@+id/bookISBN" />
 
         <EditText
             android:id="@+id/bookAuthor"
@@ -143,8 +147,9 @@
             android:hint="Author"
             android:inputType="textPersonName"
             app:layout_constraintBottom_toTopOf="@+id/bookDescription"
-            app:layout_constraintTop_toBottomOf="@+id/bookTitle"
-            tools:layout_editor_absoluteX="162dp" />
+            app:layout_constraintEnd_toEndOf="@+id/bookTitle"
+            app:layout_constraintStart_toStartOf="@+id/bookTitle"
+            app:layout_constraintTop_toBottomOf="@+id/bookTitle" />
 
         <Button
             android:id="@+id/buttonSubmit"
@@ -181,8 +186,9 @@
             android:onClick="clearInput"
             android:text="Clear"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnReload"
-            tools:layout_editor_absoluteX="166dp" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnReload" />
 
         <Button
             android:id="@+id/btnReload"
@@ -192,8 +198,9 @@
             android:onClick="reload"
             android:text="Reload"
             app:layout_constraintBottom_toTopOf="@+id/button2"
-            app:layout_constraintTop_toBottomOf="@+id/buttonSubmit"
-            tools:layout_editor_absoluteX="162dp" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/buttonSubmit" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline"

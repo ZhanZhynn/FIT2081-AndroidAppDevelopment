@@ -2,12 +2,20 @@ package com.example.myapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import java.util.StringTokenizer;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,7 +34,47 @@ public class MainActivity extends AppCompatActivity {
         bookAuthor = findViewById(R.id.bookAuthor);
         bookDescription = findViewById(R.id.bookDescription);
         bookPrice = findViewById(R.id.bookPrice);
+
+        /* Request permissions to access SMS */
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.SEND_SMS, Manifest.permission.RECEIVE_SMS, Manifest.permission.READ_SMS}, 0);
+
+        IntentFilter intentFilter = new IntentFilter("SMS_RECEIVED_ACTION");
+        SMSReceiver smsReceiver = new SMSReceiver();
+        registerReceiver(myReceiver, intentFilter);
+
     }
+
+    //Receive SMS
+    BroadcastReceiver myReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            //Retrieve SMS
+            String msg = intent.getStringExtra("message");
+            Toast myToast = Toast.makeText(context, msg, Toast.LENGTH_LONG);
+            myToast.show();
+
+            /*
+             * String Tokenizer is used to parse the incoming message
+             * The protocol is to have the account holder name and account number separate by a semicolon
+             * */
+            //12|H|123|JK|Fantasy|45
+            StringTokenizer sT = new StringTokenizer(msg, "|");
+            String bookIDMsg = sT.nextToken();
+            String bookTitleMsg = sT.nextToken();
+            String bookISBNMsg = sT.nextToken();
+            String bookAuthorMsg = sT.nextToken();
+            String bookDescriptionMsg = sT.nextToken();
+            String bookPriceMsg = sT.nextToken();
+
+            bookId.setText(bookIDMsg);
+//        bookId.getText().clear();
+            bookTitle.setText(bookTitleMsg);
+            bookISBN.setText(bookISBNMsg);
+            bookAuthor.setText(bookAuthorMsg);
+            bookDescription.setText(bookDescriptionMsg);
+            bookPrice.setText(bookPriceMsg);
+        }
+    };
 
     public void showToast(View view){
         Double bookPriceDbl;
@@ -166,4 +214,6 @@ public class MainActivity extends AppCompatActivity {
 //        editor.putString("bookISBN", "00112233");
 //        editor.commit();
 //    }
+
+
 }
