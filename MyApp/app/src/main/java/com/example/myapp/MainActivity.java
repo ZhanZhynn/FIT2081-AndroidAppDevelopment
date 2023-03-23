@@ -55,9 +55,8 @@ public class MainActivity extends AppCompatActivity {
 
             /*
              * String Tokenizer is used to parse the incoming message
-             * The protocol is to have the account holder name and account number separate by a semicolon
              * */
-            //12|H|123|JK|Fantasy|45
+            //12|H|123|JK|Fantasy|45|True
             StringTokenizer sT = new StringTokenizer(msg, "|");
             String bookIDMsg = sT.nextToken();
             String bookTitleMsg = sT.nextToken();
@@ -65,6 +64,17 @@ public class MainActivity extends AppCompatActivity {
             String bookAuthorMsg = sT.nextToken();
             String bookDescriptionMsg = sT.nextToken();
             String bookPriceMsg = sT.nextToken();
+            String smsBooleanStr = sT.nextToken();
+
+            Boolean smsBoolean = Boolean.parseBoolean(smsBooleanStr);
+            Double bookPriceDbl = Double.parseDouble(bookPriceMsg);
+
+            if (smsBoolean == true){
+                bookPriceDbl = bookPriceDbl + 100;
+            }else{
+                bookPriceDbl = bookPriceDbl + 5;
+            }
+
 
             bookId.setText(bookIDMsg);
 //        bookId.getText().clear();
@@ -72,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
             bookISBN.setText(bookISBNMsg);
             bookAuthor.setText(bookAuthorMsg);
             bookDescription.setText(bookDescriptionMsg);
-            bookPrice.setText(bookPriceMsg);
+            bookPrice.setText(bookPriceDbl.toString());
         }
     };
 
