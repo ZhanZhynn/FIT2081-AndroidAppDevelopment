@@ -153,57 +153,6 @@
             app:layout_constraintStart_toStartOf="@+id/bookTitle"
             app:layout_constraintTop_toBottomOf="@+id/bookTitle" />
 
-        <Button
-            android:id="@+id/buttonSubmit"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="30dp"
-            android:onClick="showToast"
-            android:text="Submit"
-            app:layout_constraintBottom_toTopOf="@+id/btnReload"
-            app:layout_constraintEnd_toStartOf="@+id/buttonDbl"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintHorizontal_chainStyle="spread"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guideline2" />
-
-        <Button
-            android:id="@+id/buttonDbl"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="30dp"
-            android:onClick="doublePrice"
-            android:text="Double"
-            app:layout_constraintBaseline_toBaselineOf="@+id/buttonSubmit"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/buttonSubmit" />
-
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:onClick="clearInput"
-            android:text="Clear"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnReload" />
-
-        <Button
-            android:id="@+id/btnReload"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:onClick="reload"
-            android:text="Reload"
-            app:layout_constraintBottom_toTopOf="@+id/button2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/buttonSubmit" />
-
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline"
             android:layout_width="0dp"
@@ -217,6 +166,14 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintGuide_begin="468dp" />
+
+        <ListView
+            android:id="@+id/listView"
+            android:layout_width="409dp"
+            android:layout_height="90dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline2"
+            tools:layout_editor_absoluteX="1dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

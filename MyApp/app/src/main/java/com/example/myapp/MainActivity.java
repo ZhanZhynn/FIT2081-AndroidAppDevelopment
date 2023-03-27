@@ -1,8 +1,11 @@
 package com.example.myapp;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.Manifest;
 import android.content.BroadcastReceiver;
@@ -15,6 +18,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 public class MainActivity extends AppCompatActivity {
@@ -22,11 +26,26 @@ public class MainActivity extends AppCompatActivity {
     EditText bookId, bookTitle, bookISBN, bookAuthor, bookDescription, bookPrice;
     String bookIdStr, bookTitleStr, bookISBNStr, bookAuthorStr, bookDescriptionStr, bookPriceStrVar;
 
+    ArrayList<Book> bookList = new ArrayList<Book>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.drawer);
+
+
+        //W5 toolbar
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        //W5 toggle for nav bar
+        DrawerLayout drawerLayout = findViewById(R.id.drawer_nav);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+//        navigationView.setNavigationItemSelectedListener(new MyNavigationListener());
 
         bookId = findViewById(R.id.bookID);
         bookISBN = findViewById(R.id.bookISBN);
@@ -75,7 +94,6 @@ public class MainActivity extends AppCompatActivity {
                 bookPriceDbl = bookPriceDbl + 5;
             }
 
-
             bookId.setText(bookIDMsg);
 //        bookId.getText().clear();
             bookTitle.setText(bookTitleMsg);
@@ -118,6 +136,10 @@ public class MainActivity extends AppCompatActivity {
         bookAuthorStr = bookAuthor.getText().toString();
         bookDescriptionStr = bookDescription.getText().toString();
         bookPriceStrVar = bookPriceStr;
+
+        //insert book into array list
+        Book book = new Book(bookIdStr, bookTitleStr, bookISBNStr, bookAuthorStr, bookDescriptionStr, bookPriceStrVar);
+        bookList.add(book);
     }
 
     public void clearInput(View view){
