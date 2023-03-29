@@ -14,9 +14,16 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Toast;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
 import java.util.StringTokenizer;
@@ -27,6 +34,10 @@ public class MainActivity extends AppCompatActivity {
     String bookIdStr, bookTitleStr, bookISBNStr, bookAuthorStr, bookDescriptionStr, bookPriceStrVar;
 
     ArrayList<Book> bookList = new ArrayList<Book>();
+    DrawerLayout drawerLayout;
+
+    ArrayAdapter adapter;
+    private ListView myListView;
 
 
     @Override
@@ -34,18 +45,40 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.drawer);
 
+        //W5 FAB
+        FloatingActionButton fab = findViewById(R.id.floatingActionButton);
+        fab.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        showToast();
+                    }
+                });
+
+
+
+        //W5 list view
+        myListView = findViewById(R.id.listView);
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, bookList);
+        myListView.setAdapter(adapter);
+
+
+
 
         //W5 toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         //W5 toggle for nav bar
-        DrawerLayout drawerLayout = findViewById(R.id.drawer_nav);
+        drawerLayout = findViewById(R.id.drawer_nav);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
-//        navigationView.setNavigationItemSelectedListener(new MyNavigationListener());
+
+        //W5 navigation view drawer
+        NavigationView navigationView = findViewById(R.id.drawer__nav_view);
+        navigationView.setNavigationItemSelectedListener(new MyNavigationListener());
+
 
         bookId = findViewById(R.id.bookID);
         bookISBN = findViewById(R.id.bookISBN);
@@ -61,6 +94,50 @@ public class MainActivity extends AppCompatActivity {
         SMSReceiver smsReceiver = new SMSReceiver();
         registerReceiver(myReceiver, intentFilter);
 
+    }
+
+    //w5 option menu
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.option_menu,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.option_menu_clear) {
+            clearInput();
+
+        } else if (id == R.id.option_menu_load) {
+            reload();
+
+        }
+        // tell the OS
+        return true;
+    }
+
+    //W5 Drawer Buttons
+    class MyNavigationListener implements NavigationView.OnNavigationItemSelectedListener {
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            // get the id of the selected item
+            int id = item.getItemId();
+
+            if (id == R.id.drawer_menu_add) {
+                showToast();
+            } else if (id == R.id.drawer_menu_remove_last) {
+                removeLastBook();
+            } else if (id == R.id.drawer_menu_remove_all){
+                removeAllBook();
+            }
+
+            // close the drawer
+            drawerLayout.closeDrawers();
+            // tell the OS
+            return true;
+        }
     }
 
     //Receive SMS
@@ -104,7 +181,26 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    public void showToast(View view){
+    public void removeLastBook(){
+        //remove last book from arraylist
+        bookList.remove(bookList.size()-1);
+        //show toast
+        Toast myToast = Toast.makeText(this, "Successfully removed last book.", Toast.LENGTH_LONG);
+        myToast.show();
+        adapter.notifyDataSetChanged();
+
+    }
+
+    public void removeAllBook(){
+        //remove all book from arraylist
+        bookList.removeAll(bookList);
+        //show toast
+        Toast myToast = Toast.makeText(this, "Successfully removed all books.", Toast.LENGTH_LONG);
+        myToast.show();
+        adapter.notifyDataSetChanged();
+    }
+
+    public void showToast(){
         Double bookPriceDbl;
         String bookPriceStr = "";
 
@@ -140,9 +236,10 @@ public class MainActivity extends AppCompatActivity {
         //insert book into array list
         Book book = new Book(bookIdStr, bookTitleStr, bookISBNStr, bookAuthorStr, bookDescriptionStr, bookPriceStrVar);
         bookList.add(book);
+        adapter.notifyDataSetChanged();
     }
 
-    public void clearInput(View view){
+    public void clearInput(){
         //clear the input field
         bookId.setText("");
 //        bookId.getText().clear();
@@ -221,7 +318,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //Task 3: Add a new button that is responsible for reloading the save attributes.
-    public void reload(View view){
+    public void reload(){
         //load the last book added to the system
         SharedPreferences sharedPreferences = getSharedPreferences("book", MODE_PRIVATE);
         bookId.setText(sharedPreferences.getString("bookId", ""));

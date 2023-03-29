@@ -13,4 +13,8 @@ public class Book {
         this.bookPriceStrVar = bookPriceStrVar;
     }
 
+    public String toString() {
+        return this.bookTitleStr + " | " + this.bookPriceStrVar;
+    }
+
 }
