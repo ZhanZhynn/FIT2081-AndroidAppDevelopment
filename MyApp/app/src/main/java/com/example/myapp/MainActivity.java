@@ -146,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
         public void onReceive(Context context, Intent intent) {
             //Retrieve SMS
             String msg = intent.getStringExtra("message");
-            Toast myToast = Toast.makeText(context, msg, Toast.LENGTH_LONG);
+            Toast myToast = Toast.makeText(context, msg, Toast.LENGTH_SHORT);
             myToast.show();
 
             /*
@@ -185,7 +185,7 @@ public class MainActivity extends AppCompatActivity {
         //remove last book from arraylist
         bookList.remove(bookList.size()-1);
         //show toast
-        Toast myToast = Toast.makeText(this, "Successfully removed last book.", Toast.LENGTH_LONG);
+        Toast myToast = Toast.makeText(this, "Successfully removed last book.", Toast.LENGTH_SHORT);
         myToast.show();
         adapter.notifyDataSetChanged();
 
@@ -195,7 +195,7 @@ public class MainActivity extends AppCompatActivity {
         //remove all book from arraylist
         bookList.removeAll(bookList);
         //show toast
-        Toast myToast = Toast.makeText(this, "Successfully removed all books.", Toast.LENGTH_LONG);
+        Toast myToast = Toast.makeText(this, "Successfully removed all books.", Toast.LENGTH_SHORT);
         myToast.show();
         adapter.notifyDataSetChanged();
     }
@@ -210,7 +210,7 @@ public class MainActivity extends AppCompatActivity {
             bookPriceStr = String.format("%.2f", bookPriceDbl);
         }
         String toastString = "Successfully added book '" + bookTitle.getText().toString() + "' at price (RM" + bookPriceStr + ").";
-        Toast myToast = Toast.makeText(this, toastString, Toast.LENGTH_LONG);
+        Toast myToast = Toast.makeText(this, toastString, Toast.LENGTH_SHORT);
         myToast.show();
 //        clearInput(view);
 
