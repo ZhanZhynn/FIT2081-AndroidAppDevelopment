@@ -10,4 +10,7 @@
     <item
         android:id="@+id/drawer_menu_remove_all"
         android:title="Remove All" />
+    <item
+        android:id="@+id/drawer_menu_close"
+        android:title="Close" />
 </menu>

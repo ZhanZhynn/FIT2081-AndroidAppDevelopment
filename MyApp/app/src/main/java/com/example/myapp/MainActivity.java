@@ -112,7 +112,10 @@ public class MainActivity extends AppCompatActivity {
 
         } else if (id == R.id.option_menu_load) {
             reload();
-
+        } else if (id == R.id.option_menu_total){
+            //show toast for total number of books in bookList
+            Toast myToast = Toast.makeText(this, "Total number of books: " + bookList.size(), Toast.LENGTH_SHORT);
+            myToast.show();
         }
         // tell the OS
         return true;
@@ -131,6 +134,9 @@ public class MainActivity extends AppCompatActivity {
                 removeLastBook();
             } else if (id == R.id.drawer_menu_remove_all){
                 removeAllBook();
+            }else if (id==R.id.drawer_menu_close){
+                //close application
+                finish();
             }
 
             // close the drawer
