@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
 import android.content.BroadcastReceiver;
@@ -36,8 +38,12 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<Book> bookList = new ArrayList<Book>();
     DrawerLayout drawerLayout;
 
-    ArrayAdapter adapter;
+//    ArrayAdapter adapter;
     private ListView myListView;
+
+    RecyclerView recyclerView;
+    RecyclerView.LayoutManager layoutManager;
+    MyRecyclerViewAdapter recyclerViewAdapter;
 
 
     @Override
@@ -55,11 +61,22 @@ public class MainActivity extends AppCompatActivity {
                 });
 
 
+        //W6 recycler view
+        recyclerView = findViewById(R.id.rv);
+
+        layoutManager = new LinearLayoutManager(this);  //A RecyclerView.LayoutManager implementation which provides similar functionality to ListView.
+        recyclerView.setLayoutManager(layoutManager);   // Also StaggeredGridLayoutManager and GridLayoutManager or a custom Layout manager
+
+
+        recyclerViewAdapter = new MyRecyclerViewAdapter(bookList);
+//        recyclerViewAdapter.setData(bookList);
+        recyclerView.setAdapter(recyclerViewAdapter);
+
 
         //W5 list view
-        myListView = findViewById(R.id.listView);
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, bookList);
-        myListView.setAdapter(adapter);
+//        myListView = findViewById(R.id.listView);
+//        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, bookList);
+//        myListView.setAdapter(adapter);
 
 
 
@@ -193,7 +210,7 @@ public class MainActivity extends AppCompatActivity {
         //show toast
         Toast myToast = Toast.makeText(this, "Successfully removed last book.", Toast.LENGTH_SHORT);
         myToast.show();
-        adapter.notifyDataSetChanged();
+        recyclerViewAdapter.notifyDataSetChanged();
 
     }
 
@@ -203,7 +220,7 @@ public class MainActivity extends AppCompatActivity {
         //show toast
         Toast myToast = Toast.makeText(this, "Successfully removed all books.", Toast.LENGTH_SHORT);
         myToast.show();
-        adapter.notifyDataSetChanged();
+        recyclerViewAdapter.notifyDataSetChanged();
     }
 
     public void showToast(){
@@ -242,7 +259,7 @@ public class MainActivity extends AppCompatActivity {
         //insert book into array list
         Book book = new Book(bookIdStr, bookTitleStr, bookISBNStr, bookAuthorStr, bookDescriptionStr, bookPriceStrVar);
         bookList.add(book);
-        adapter.notifyDataSetChanged();
+        recyclerViewAdapter.notifyDataSetChanged();
     }
 
     public void clearInput(){
