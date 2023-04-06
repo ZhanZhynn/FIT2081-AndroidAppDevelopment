@@ -34,6 +34,7 @@ public class MyAdaptor extends RecyclerView.Adapter<MyAdaptor.MyViewHolder>{
         myViewHolder.itemSugar.setText(data.get(pos).getFruitSugar());
         myViewHolder.itemCalories.setText(data.get(pos).getFruitCalories());
         myViewHolder.itemCarbohydrate.setText(data.get(pos).getFruitCarbohydrate());
+        myViewHolder.itemProtein.setText(data.get(pos).getFruitProtein());
 
     }
 
@@ -50,6 +51,8 @@ public class MyAdaptor extends RecyclerView.Adapter<MyAdaptor.MyViewHolder>{
         public TextView itemCalories;
         public TextView itemCarbohydrate;
 
+        public TextView itemProtein;
+
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             itemName = itemView.findViewById(R.id.item_name);
@@ -57,6 +60,7 @@ public class MyAdaptor extends RecyclerView.Adapter<MyAdaptor.MyViewHolder>{
             itemSugar = itemView.findViewById(R.id.item_sugar);
             itemCalories = itemView.findViewById(R.id.item_calories);
             itemCarbohydrate = itemView.findViewById(R.id.item_carbohydrate);
+            itemProtein = itemView.findViewById(R.id.item_protein);
 
         }
     }

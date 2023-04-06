@@ -7,12 +7,15 @@ public class Fruit {
     public double fruitCalories;
     public double fruitCarbohydrate;
 
-    public Fruit(String fruitName, String fruitFamily, double fruitSugar, double fruitCalories, double fruitCarbohydrate) {
+    public double fruitProtein;
+
+    public Fruit(String fruitName, String fruitFamily, double fruitSugar, double fruitCalories, double fruitCarbohydrate, double fruitProtein) {
         this.fruitName = fruitName;
         this.fruitFamily = fruitFamily;
         this.fruitSugar = fruitSugar;
         this.fruitCalories = fruitCalories;
         this.fruitCarbohydrate = fruitCarbohydrate;
+        this.fruitProtein = fruitProtein;
     }
 
     //getter and setter methods
@@ -35,6 +38,10 @@ public class Fruit {
 
     public String getFruitCarbohydrate() {
         return "carbohydrate: " + fruitCarbohydrate;
+    }
+
+    public String getFruitProtein() {
+        return "protein: " + fruitProtein;
     }
 }
 
