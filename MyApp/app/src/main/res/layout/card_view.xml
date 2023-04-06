@@ -25,15 +25,6 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/title_ph"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="Title: "
-            app:layout_constraintStart_toStartOf="@+id/guideline5"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
             android:id="@+id/author_ph"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -54,8 +45,8 @@
             android:id="@+id/cv_bookID"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Text View"
             android:layout_marginTop="4dp"
+            android:text="Text View"
             app:layout_constraintBottom_toTopOf="@+id/cv_author"
             app:layout_constraintStart_toEndOf="@+id/id_ph"
             app:layout_constraintTop_toTopOf="parent" />
@@ -64,8 +55,8 @@
             android:id="@+id/cv_author"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView"
             android:layout_marginTop="4dp"
+            android:text="TextView"
             app:layout_constraintBottom_toTopOf="@+id/cv_price"
             app:layout_constraintStart_toEndOf="@+id/author_ph"
             app:layout_constraintTop_toBottomOf="@+id/cv_bookID" />
@@ -77,25 +68,53 @@
             android:layout_marginTop="4dp"
             android:text="TextView"
             app:layout_constraintStart_toEndOf="@+id/title_ph"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/isbn_ph"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="ISBN: "
-            app:layout_constraintStart_toStartOf="@+id/guideline5"
-            app:layout_constraintTop_toBottomOf="@+id/title_ph" />
+            app:layout_constraintTop_toBottomOf="@+id/cv_pos" />
 
         <TextView
             android:id="@+id/cv_isbn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="8dp"
             android:text="TextView"
             app:layout_constraintStart_toEndOf="@+id/isbn_ph"
             app:layout_constraintTop_toBottomOf="@+id/cv_bookTitle" />
+
+        <TextView
+            android:id="@+id/isbn_ph"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="ISBN: "
+            app:layout_constraintStart_toStartOf="@+id/guideline5"
+            app:layout_constraintTop_toBottomOf="@+id/title_ph" />
+
+        <TextView
+            android:id="@+id/title_ph"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="Title: "
+            app:layout_constraintStart_toStartOf="@+id/guideline5"
+            app:layout_constraintTop_toBottomOf="@+id/isbn_ph2" />
+
+        <TextView
+            android:id="@+id/isbn_ph2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="Position: "
+            app:layout_constraintStart_toStartOf="@+id/guideline5"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/cv_pos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="TextView"
+            app:layout_constraintStart_toEndOf="@+id/isbn_ph2"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/price_ph"
@@ -111,8 +130,8 @@
             android:id="@+id/cv_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView"
             android:layout_marginTop="4dp"
+            android:text="TextView"
             app:layout_constraintBottom_toTopOf="@+id/cv_bookDesc"
             app:layout_constraintStart_toEndOf="@+id/price_ph"
             app:layout_constraintTop_toBottomOf="@+id/cv_author" />
@@ -121,8 +140,8 @@
             android:id="@+id/description_ph"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Description: "
             android:layout_marginTop="4dp"
+            android:text="Description: "
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/price_ph"
             tools:layout_editor_absoluteX="0dp" />
@@ -131,8 +150,8 @@
             android:id="@+id/cv_bookDesc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView"
             android:layout_marginTop="4dp"
+            android:text="TextView"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/description_ph"
             app:layout_constraintTop_toBottomOf="@+id/cv_price" />

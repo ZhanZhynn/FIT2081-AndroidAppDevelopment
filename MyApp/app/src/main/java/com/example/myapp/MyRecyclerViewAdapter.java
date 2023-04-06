@@ -35,6 +35,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
         myViewHolder.tv_isbn.setText(data.get(pos).getISBN());
         myViewHolder.tv_price.setText(data.get(pos).getPrice());
         myViewHolder.tv_bookDesc.setText(data.get(pos).getDesc());
+        myViewHolder.tv_pos.setText(String.valueOf(pos));
 
     }
 
@@ -51,6 +52,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
         public TextView tv_isbn;
         public TextView tv_price;
         public TextView tv_bookDesc;
+        public TextView tv_pos;
 
 
         public MyViewHolder(@NonNull View itemView) {
@@ -61,6 +63,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
             tv_isbn = itemView.findViewById(R.id.cv_isbn);
             tv_price = itemView.findViewById(R.id.cv_price);
             tv_bookDesc = itemView.findViewById(R.id.cv_bookDesc);
+            tv_pos = itemView.findViewById(R.id.cv_pos);
         }
     }
 
