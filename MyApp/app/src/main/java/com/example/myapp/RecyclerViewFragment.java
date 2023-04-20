@@ -72,7 +72,7 @@ public class RecyclerViewFragment extends Fragment {
         }
 
         //Database W7
-//        adapter = new MyRecyclerViewAdapter();
+        adapter = new MyRecyclerViewAdapter();
         mItemViewModel = new ViewModelProvider(this).get(ItemViewModel.class);
         mItemViewModel.getAllItems().observe(this, newData -> {
             adapter.setBookData(newData);

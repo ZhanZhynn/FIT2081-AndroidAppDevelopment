@@ -30,4 +30,11 @@ public class ItemViewModel extends AndroidViewModel {
     public void deleteAll(){
         mRepository.deleteAll();
     }
+
+    public void deleteLast(){mRepository.deleteLast();
+    }
+
+    public void delete50(){mRepository.delete50();
+    }
+
 }

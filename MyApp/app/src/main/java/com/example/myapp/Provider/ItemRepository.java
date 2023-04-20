@@ -29,4 +29,16 @@ public class ItemRepository {
             mItemDao.deleteAllItems();
         });
     }
+
+    void deleteLast(){
+        ItemDatabase.databaseWriteExecutor.execute(()->{
+            mItemDao.deleteLastItem();
+        });
+    }
+
+    void delete50(){
+        ItemDatabase.databaseWriteExecutor.execute(()->{
+            mItemDao.delete50();
+        });
+    }
 }

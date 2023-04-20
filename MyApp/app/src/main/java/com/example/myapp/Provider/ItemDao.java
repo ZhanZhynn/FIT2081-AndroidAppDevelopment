@@ -25,4 +25,10 @@ public interface ItemDao {
 
     @Query("delete FROM items")
     void deleteAllItems();
+
+    @Query("DELETE FROM items WHERE bookID=(SELECT MAX(bookid) FROM items)")
+    void deleteLastItem();
+
+    @Query("DELETE FROM items WHERE bookPrice>50")
+    void delete50();
 }

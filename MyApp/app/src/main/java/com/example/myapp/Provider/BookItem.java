@@ -26,11 +26,11 @@ public class BookItem {
     String bookDescriptionStr;
 
     @ColumnInfo(name = "bookPrice")
-    String bookPrice;
+    double bookPrice;
 
 
 
-    public BookItem(String bookTitleStr, String bookISBNStr, String bookAuthorStr, String bookDescriptionStr, String bookPrice) {
+    public BookItem(String bookTitleStr, String bookISBNStr, String bookAuthorStr, String bookDescriptionStr, double bookPrice) {
         this.bookTitleStr = bookTitleStr;
         this.bookISBNStr = bookISBNStr;
         this.bookAuthorStr = bookAuthorStr;
@@ -63,7 +63,7 @@ public class BookItem {
         return bookDescriptionStr;
     }
 
-    public String getPrice(){
+    public double getPrice(){
         return bookPrice;
     }
 

@@ -61,17 +61,16 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.drawer);
 
         //W6 recycler view
-        recyclerView = findViewById(R.id.rv);
+//        recyclerView = findViewById(R.id.rv);
 
-        layoutManager = new LinearLayoutManager(this);  //A RecyclerView.LayoutManager implementation which provides similar functionality to ListView.
-        recyclerView.setLayoutManager(layoutManager);   // Also StaggeredGridLayoutManager and GridLayoutManager or a custom Layout manager
-
-        adapter = new MyRecyclerViewAdapter();
-        recyclerView.setAdapter(adapter);
+//        layoutManager = new LinearLayoutManager(this);  //A RecyclerView.LayoutManager implementation which provides similar functionality to ListView.
+//        recyclerView.setLayoutManager(layoutManager);   // Also StaggeredGridLayoutManager and GridLayoutManager or a custom Layout manager
+//        adapter = new MyRecyclerViewAdapter();
+//        recyclerView.setAdapter(adapter);
 
 
         //Database W7
-//        adapter = new MyRecyclerViewAdapter();
+        adapter = new MyRecyclerViewAdapter();
         mItemViewModel = new ViewModelProvider(this).get(ItemViewModel.class);
         mItemViewModel.getAllItems().observe(this, newData -> {
             adapter.setBookData(newData);
@@ -79,7 +78,8 @@ public class MainActivity extends AppCompatActivity {
 //            myText.setText(newData.size() + "");
         });
 
-//        getSupportFragmentManager().beginTransaction().replace(R.id.frame1,new RecyclerViewFragment()).commit();
+        //fragment layout
+        getSupportFragmentManager().beginTransaction().replace(R.id.frame1,new RecyclerViewFragment()).commit();
 
 
         //W5 FAB
@@ -165,7 +165,14 @@ public class MainActivity extends AppCompatActivity {
                 removeLastBook();
             } else if (id == R.id.drawer_menu_remove_all){
                 removeAllBook();
-            } else if (id==R.id.drawer_menu_close){
+            }
+            else if (id == R.id.drawer_menu_showall){
+                showDBList();
+            }
+            else if (id == R.id.drawer_menu_remove50){
+                remove50();
+            }
+            else if (id==R.id.drawer_menu_close){
                 //close application
                 finish();
             }
@@ -177,12 +184,11 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-//    public void showDBList(View view)
-//    {
-//
-//        Intent i = new Intent(this, Main2Activity.class);
-//        startActivity(i);
-//    }
+    public void showDBList()
+    {
+        Intent i = new Intent(this, Main2Activity.class);
+        startActivity(i);
+    }
 
     //Receive SMS
     BroadcastReceiver myReceiver = new BroadcastReceiver() {
@@ -227,25 +233,36 @@ public class MainActivity extends AppCompatActivity {
 
     public void removeLastBook(){
         //remove last book from arraylist
-        bookList.remove(bookList.size()-1);
-        //show toast
-        Toast myToast = Toast.makeText(this, "Successfully removed last book.", Toast.LENGTH_SHORT);
-        myToast.show();
+//        bookList.remove(bookList.size()-1);
+//        //show toast
+//        Toast myToast = Toast.makeText(this, "Successfully removed last book.", Toast.LENGTH_SHORT);
+//        myToast.show();
 //        recyclerViewAdapter.notifyDataSetChanged();
+
+        //remove last book from database
+        mItemViewModel.deleteLast();
 
     }
 
     public void removeAllBook(){
         //remove all book from arraylist
-        bookList.removeAll(bookList);
-        //show toast
-        Toast myToast = Toast.makeText(this, "Successfully removed all books.", Toast.LENGTH_SHORT);
-        myToast.show();
+//        bookList.removeAll(bookList);
+//        //show toast
+//        Toast myToast = Toast.makeText(this, "Successfully removed all books.", Toast.LENGTH_SHORT);
+//        myToast.show();
 //        recyclerViewAdapter.notifyDataSetChanged();
+
+        //remove all book from database
+        mItemViewModel.deleteAll();
+    }
+
+    public void remove50(){
+        //remove book with price more than 50
+        mItemViewModel.delete50();
     }
 
     public void showToast(){
-        Double bookPriceDbl;
+        Double bookPriceDbl = 0.0;
         String bookPriceStr = "";
 
         //if no price inserted, set default price to empty string
@@ -270,20 +287,18 @@ public class MainActivity extends AppCompatActivity {
         editor.commit();
 
 
-
-
         //save last inserted book to instance variable
         bookIdStr = bookId.getText().toString();
         bookTitleStr = bookTitle.getText().toString();
         bookISBNStr = bookISBN.getText().toString();
         bookAuthorStr = bookAuthor.getText().toString();
         bookDescriptionStr = bookDescription.getText().toString();
-        bookPriceStrVar = bookPriceStr;
+        bookPriceDbl = Double.parseDouble(bookPrice.getText().toString());
 
         //insert book into array list
 //        Book book = new Book(bookIdStr, bookTitleStr, bookISBNStr, bookAuthorStr, bookDescriptionStr, bookPriceStrVar);
 //        bookList.add(book);
-        BookItem bookItem = new BookItem(bookTitleStr, bookISBNStr, bookAuthorStr, bookDescriptionStr, bookPriceStrVar);
+        BookItem bookItem = new BookItem(bookTitleStr, bookISBNStr, bookAuthorStr, bookDescriptionStr, bookPriceDbl);
         mItemViewModel.insert(bookItem);
     }
 
