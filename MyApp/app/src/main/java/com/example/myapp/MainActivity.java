@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,11 +20,12 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.myapp.Provider.BookItem;
+import com.example.myapp.Provider.ItemViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
@@ -38,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<Book> bookList = new ArrayList<Book>();
     DrawerLayout drawerLayout;
 
+
+
 //    ArrayAdapter adapter;
     private ListView myListView;
 
@@ -45,11 +49,38 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView.LayoutManager layoutManager;
     MyRecyclerViewAdapter recyclerViewAdapter;
 
+    private ItemViewModel mItemViewModel;
+
+    MyRecyclerViewAdapter adapter;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.drawer);
+
+        //W6 recycler view
+        recyclerView = findViewById(R.id.rv);
+
+        layoutManager = new LinearLayoutManager(this);  //A RecyclerView.LayoutManager implementation which provides similar functionality to ListView.
+        recyclerView.setLayoutManager(layoutManager);   // Also StaggeredGridLayoutManager and GridLayoutManager or a custom Layout manager
+
+        adapter = new MyRecyclerViewAdapter();
+        recyclerView.setAdapter(adapter);
+
+
+        //Database W7
+//        adapter = new MyRecyclerViewAdapter();
+        mItemViewModel = new ViewModelProvider(this).get(ItemViewModel.class);
+        mItemViewModel.getAllItems().observe(this, newData -> {
+            adapter.setBookData(newData);
+            adapter.notifyDataSetChanged();
+//            myText.setText(newData.size() + "");
+        });
+
+//        getSupportFragmentManager().beginTransaction().replace(R.id.frame1,new RecyclerViewFragment()).commit();
+
 
         //W5 FAB
         FloatingActionButton fab = findViewById(R.id.floatingActionButton);
@@ -60,23 +91,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-
-        //W6 recycler view
-        recyclerView = findViewById(R.id.rv);
-
-        layoutManager = new LinearLayoutManager(this);  //A RecyclerView.LayoutManager implementation which provides similar functionality to ListView.
-        recyclerView.setLayoutManager(layoutManager);   // Also StaggeredGridLayoutManager and GridLayoutManager or a custom Layout manager
-
-
-        recyclerViewAdapter = new MyRecyclerViewAdapter(bookList);
-//        recyclerViewAdapter.setData(bookList);
-        recyclerView.setAdapter(recyclerViewAdapter);
-
-
-        //W5 list view
-//        myListView = findViewById(R.id.listView);
-//        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, bookList);
-//        myListView.setAdapter(adapter);
 
 
 
@@ -151,7 +165,7 @@ public class MainActivity extends AppCompatActivity {
                 removeLastBook();
             } else if (id == R.id.drawer_menu_remove_all){
                 removeAllBook();
-            }else if (id==R.id.drawer_menu_close){
+            } else if (id==R.id.drawer_menu_close){
                 //close application
                 finish();
             }
@@ -162,6 +176,13 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
     }
+
+//    public void showDBList(View view)
+//    {
+//
+//        Intent i = new Intent(this, Main2Activity.class);
+//        startActivity(i);
+//    }
 
     //Receive SMS
     BroadcastReceiver myReceiver = new BroadcastReceiver() {
@@ -210,7 +231,7 @@ public class MainActivity extends AppCompatActivity {
         //show toast
         Toast myToast = Toast.makeText(this, "Successfully removed last book.", Toast.LENGTH_SHORT);
         myToast.show();
-        recyclerViewAdapter.notifyDataSetChanged();
+//        recyclerViewAdapter.notifyDataSetChanged();
 
     }
 
@@ -220,7 +241,7 @@ public class MainActivity extends AppCompatActivity {
         //show toast
         Toast myToast = Toast.makeText(this, "Successfully removed all books.", Toast.LENGTH_SHORT);
         myToast.show();
-        recyclerViewAdapter.notifyDataSetChanged();
+//        recyclerViewAdapter.notifyDataSetChanged();
     }
 
     public void showToast(){
@@ -248,6 +269,9 @@ public class MainActivity extends AppCompatActivity {
         editor.putString("bookPrice", bookPriceStr);
         editor.commit();
 
+
+
+
         //save last inserted book to instance variable
         bookIdStr = bookId.getText().toString();
         bookTitleStr = bookTitle.getText().toString();
@@ -257,9 +281,10 @@ public class MainActivity extends AppCompatActivity {
         bookPriceStrVar = bookPriceStr;
 
         //insert book into array list
-        Book book = new Book(bookIdStr, bookTitleStr, bookISBNStr, bookAuthorStr, bookDescriptionStr, bookPriceStrVar);
-        bookList.add(book);
-        recyclerViewAdapter.notifyDataSetChanged();
+//        Book book = new Book(bookIdStr, bookTitleStr, bookISBNStr, bookAuthorStr, bookDescriptionStr, bookPriceStrVar);
+//        bookList.add(book);
+        BookItem bookItem = new BookItem(bookTitleStr, bookISBNStr, bookAuthorStr, bookDescriptionStr, bookPriceStrVar);
+        mItemViewModel.insert(bookItem);
     }
 
     public void clearInput(){

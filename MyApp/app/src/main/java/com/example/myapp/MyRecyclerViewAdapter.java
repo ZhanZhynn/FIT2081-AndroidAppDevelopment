@@ -8,16 +8,27 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.myapp.Provider.BookItem;
+
 import java.util.ArrayList;
+import java.util.List;
 
 public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAdapter.MyViewHolder> {
 
-    ArrayList<Book> data = new ArrayList<>();
+//    ArrayList<Book> data = new ArrayList<>();
+    List<BookItem> bookData = new ArrayList<>();
 
     //The constructor is required to receive the data source
-    public MyRecyclerViewAdapter(ArrayList<Book> data) {
-        this.data = data;
+//    public MyRecyclerViewAdapter(ArrayList<Book> data) {
+//        this.data = data;
+//    }
+    public MyRecyclerViewAdapter() { //empty constructor for database
     }
+
+    public void setBookData(List<BookItem> bookData) {
+        this.bookData = bookData;
+    }
+
 
     @NonNull
     @Override
@@ -28,20 +39,28 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
     }
 
     @Override
+//    public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int pos) {
+//        myViewHolder.tv_bookID.setText(data.get(pos).getID());
+//        myViewHolder.tv_bookTitle.setText(data.get(pos).getTitle());
+//        myViewHolder.tv_author.setText(data.get(pos).getAuthor());
+//        myViewHolder.tv_isbn.setText(data.get(pos).getISBN());
+//        myViewHolder.tv_price.setText(data.get(pos).getPrice());
+//        myViewHolder.tv_bookDesc.setText(data.get(pos).getDesc());
+//        myViewHolder.tv_pos.setText(String.valueOf(pos));
+//    }
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int pos) {
-        myViewHolder.tv_bookID.setText(data.get(pos).getID());
-        myViewHolder.tv_bookTitle.setText(data.get(pos).getTitle());
-        myViewHolder.tv_author.setText(data.get(pos).getAuthor());
-        myViewHolder.tv_isbn.setText(data.get(pos).getISBN());
-        myViewHolder.tv_price.setText(data.get(pos).getPrice());
-        myViewHolder.tv_bookDesc.setText(data.get(pos).getDesc());
+        myViewHolder.tv_bookID.setText(bookData.get(pos).getID() + "");
+        myViewHolder.tv_bookTitle.setText(bookData.get(pos).getTitle() + "");
+        myViewHolder.tv_author.setText(bookData.get(pos).getAuthor() + "");
+        myViewHolder.tv_isbn.setText(bookData.get(pos).getISBN()+ "") ;
+        myViewHolder.tv_price.setText(bookData.get(pos).getPrice()+ "");
+        myViewHolder.tv_bookDesc.setText(bookData.get(pos).getDesc()+ "");
         myViewHolder.tv_pos.setText(String.valueOf(pos));
-
     }
 
     @Override
     public int getItemCount() {
-        return data.size();
+        return bookData.size();
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {
