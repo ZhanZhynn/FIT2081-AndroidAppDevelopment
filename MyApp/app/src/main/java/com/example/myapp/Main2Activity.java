@@ -12,6 +12,7 @@ import com.example.myapp.Provider.ItemViewModel;
 
 import java.util.ArrayList;
 
+//need to add to android manifest
 public class Main2Activity extends AppCompatActivity {
 
 //    RecyclerView recyclerView;

@@ -7,6 +7,7 @@ import androidx.room.PrimaryKey;
 
 @Entity(tableName = "items")
 public class BookItem {
+    //BookItem class for database use
 
     @PrimaryKey(autoGenerate = true)
     @NonNull
@@ -31,6 +32,7 @@ public class BookItem {
 
 
     public BookItem(String bookTitleStr, String bookISBNStr, String bookAuthorStr, String bookDescriptionStr, double bookPrice) {
+        //id is auto generated, so don't need add
         this.bookTitleStr = bookTitleStr;
         this.bookISBNStr = bookISBNStr;
         this.bookAuthorStr = bookAuthorStr;

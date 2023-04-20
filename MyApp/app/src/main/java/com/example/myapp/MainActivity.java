@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.drawer);
 
-        //W6 recycler view
+        //W6 recycler view, W7 uses fragment, so don't need this already
 //        recyclerView = findViewById(R.id.rv);
 
 //        layoutManager = new LinearLayoutManager(this);  //A RecyclerView.LayoutManager implementation which provides similar functionality to ListView.
@@ -92,9 +92,6 @@ public class MainActivity extends AppCompatActivity {
                 });
 
 
-
-
-
         //W5 toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -110,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
         NavigationView navigationView = findViewById(R.id.drawer__nav_view);
         navigationView.setNavigationItemSelectedListener(new MyNavigationListener());
 
-
+        //get the input fields id
         bookId = findViewById(R.id.bookID);
         bookISBN = findViewById(R.id.bookISBN);
         bookTitle = findViewById(R.id.bookTitle);
@@ -140,11 +137,11 @@ public class MainActivity extends AppCompatActivity {
 
         if (id == R.id.option_menu_clear) {
             clearInput();
-
         } else if (id == R.id.option_menu_load) {
             reload();
         } else if (id == R.id.option_menu_total){
             //show toast for total number of books in bookList
+            //not working for database, not in syllabus
             Toast myToast = Toast.makeText(this, "Total number of books: " + bookList.size(), Toast.LENGTH_SHORT);
             myToast.show();
         }
@@ -176,7 +173,6 @@ public class MainActivity extends AppCompatActivity {
                 //close application
                 finish();
             }
-
             // close the drawer
             drawerLayout.closeDrawers();
             // tell the OS
@@ -184,6 +180,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //launch new activity fragment, rememeber to add to android manifest
     public void showDBList()
     {
         Intent i = new Intent(this, Main2Activity.class);

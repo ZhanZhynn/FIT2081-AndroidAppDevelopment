@@ -20,11 +20,13 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
 
     //The constructor is required to receive the data source
 //    public MyRecyclerViewAdapter(ArrayList<Book> data) {
+        //this uses arraylist
 //        this.data = data;
 //    }
-    public MyRecyclerViewAdapter() { //empty constructor for database
+    public MyRecyclerViewAdapter() { //empty constructor for if use with database
     }
 
+    //for use with database
     public void setBookData(List<BookItem> bookData) {
         this.bookData = bookData;
     }
@@ -40,6 +42,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
 
     @Override
 //    public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int pos) {
+            //this uses arraylist
 //        myViewHolder.tv_bookID.setText(data.get(pos).getID());
 //        myViewHolder.tv_bookTitle.setText(data.get(pos).getTitle());
 //        myViewHolder.tv_author.setText(data.get(pos).getAuthor());
@@ -49,6 +52,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
 //        myViewHolder.tv_pos.setText(String.valueOf(pos));
 //    }
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int pos) {
+        //this uses database
         myViewHolder.tv_bookID.setText(bookData.get(pos).getID() + "");
         myViewHolder.tv_bookTitle.setText(bookData.get(pos).getTitle() + "");
         myViewHolder.tv_author.setText(bookData.get(pos).getAuthor() + "");
