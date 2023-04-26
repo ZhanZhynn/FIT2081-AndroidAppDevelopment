@@ -28,6 +28,11 @@ import com.example.myapp.Provider.BookItem;
 import com.example.myapp.Provider.ItemViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.StringTokenizer;
@@ -53,6 +58,8 @@ public class MainActivity extends AppCompatActivity {
 
     MyRecyclerViewAdapter adapter;
 
+    DatabaseReference myRef; //firebase reference
+
 
 
     @Override
@@ -67,6 +74,14 @@ public class MainActivity extends AppCompatActivity {
 //        recyclerView.setLayoutManager(layoutManager);   // Also StaggeredGridLayoutManager and GridLayoutManager or a custom Layout manager
 //        adapter = new MyRecyclerViewAdapter();
 //        recyclerView.setAdapter(adapter);
+
+        // Write a message to the database
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        myRef = database.getReference("Book/BookItem"); //table path name
+
+        //add firebase child event listener
+//        myRef.addChildEventListener(myChildEventListener);
+
 
 
         //Database W7
@@ -251,6 +266,9 @@ public class MainActivity extends AppCompatActivity {
 
         //remove all book from database
         mItemViewModel.deleteAll();
+
+        //remove all book from firebase
+        myRef.removeValue();
     }
 
     public void remove50(){
@@ -297,6 +315,10 @@ public class MainActivity extends AppCompatActivity {
 //        bookList.add(book);
         BookItem bookItem = new BookItem(bookTitleStr, bookISBNStr, bookAuthorStr, bookDescriptionStr, bookPriceDbl);
         mItemViewModel.insert(bookItem);
+
+        //insert book into firebase database
+        myRef.push().setValue(bookItem);
+
     }
 
     public void clearInput(){
