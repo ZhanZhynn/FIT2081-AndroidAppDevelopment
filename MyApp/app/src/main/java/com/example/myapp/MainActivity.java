@@ -187,6 +187,7 @@ public class MainActivity extends AppCompatActivity {
                     case MotionEvent.ACTION_DOWN:
                         initial_x = (int) event.getX();
                         initial_y = (int) event.getY();
+                        //set toast
                         return true;
                     case MotionEvent.ACTION_MOVE:
                         //swipe left to right to add 1 to price
