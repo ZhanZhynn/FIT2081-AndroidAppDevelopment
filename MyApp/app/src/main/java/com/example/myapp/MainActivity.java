@@ -20,6 +20,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -61,6 +62,11 @@ public class MainActivity extends AppCompatActivity {
 
     DatabaseReference myRef; //firebase reference
 
+    //w10 touchFrame
+    View touchFrame;
+    int initial_x;  //coordinates
+    int initial_y;
+
 
 
     @Override
@@ -76,6 +82,9 @@ public class MainActivity extends AppCompatActivity {
 //        adapter = new MyRecyclerViewAdapter();
 //        recyclerView.setAdapter(adapter);
 
+
+
+
         // Write a message to the database
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         myRef = database.getReference("Book/BookItem"); //table path name
@@ -85,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 //toast message
-                Toast.makeText(MainActivity.this, "Data added", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(MainActivity.this, "Data added", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -96,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onChildRemoved(@NonNull DataSnapshot snapshot) {
                 //toast message
-                Toast.makeText(MainActivity.this, "Data removed", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(MainActivity.this, "Data removed", Toast.LENGTH_SHORT).show();
 
             }
 
@@ -165,6 +174,59 @@ public class MainActivity extends AppCompatActivity {
         IntentFilter intentFilter = new IntentFilter("SMS_RECEIVED_ACTION");
         SMSReceiver smsReceiver = new SMSReceiver();
         registerReceiver(myReceiver, intentFilter);
+
+
+        //w10 touch frame
+        touchFrame = findViewById(R.id.touchFrame);
+        touchFrame.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event){
+                int motion = event.getActionMasked();
+
+                switch (motion){
+                    case MotionEvent.ACTION_DOWN:
+                        initial_x = (int) event.getX();
+                        initial_y = (int) event.getY();
+                        return true;
+                    case MotionEvent.ACTION_MOVE:
+                        //swipe left to right to add 1 to price
+                        if (Math.abs(initial_y - event.getY()) < 40){ //buffer for vertical movement
+                            if (initial_x < event.getX()){
+                                bookPriceStrVar = bookPrice.getText().toString();
+                                double bookPriceDouble = Double.parseDouble(bookPriceStrVar);
+                                bookPriceDouble++;
+                                bookPriceStrVar = Double.toString(bookPriceDouble);
+                                bookPrice.setText(bookPriceStrVar);
+                            }
+//                            else{   //swipe right to left to minus 1 to price
+//                                bookPriceStrVar = bookPrice.getText().toString();
+//                                double bookPriceDouble = Double.parseDouble(bookPriceStrVar);
+//                                bookPriceDouble--;
+//                                bookPriceStrVar = Double.toString(bookPriceDouble);
+//                                bookPrice.setText(bookPriceStrVar);
+//                            }
+                        }
+
+                        return true;
+                    case MotionEvent.ACTION_UP:
+                        //swipe right to left to add book
+                        if (Math.abs(initial_y - event.getY()) < 40){ //buffer for vertical movement
+                            if (initial_x > event.getX()){
+                                showToast();
+                            }
+                        }
+                        //swipe from bottom to top to clear all the fields
+                        if (Math.abs(initial_x - event.getX()) < 40){ //buffer for horizontal movement
+                            if (initial_y > event.getY()){
+                                clearInput();
+                            }
+                        }
+                        return true;
+                    default:
+                        return false;
+                }
+            }
+        });
 
     }
 

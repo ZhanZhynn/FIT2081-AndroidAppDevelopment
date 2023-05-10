@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.example.myapp.ScrollViewCustom xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -38,14 +38,13 @@
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
             android:layout_marginEnd="60dp"
             android:text="ID:"
             app:layout_constraintBottom_toTopOf="@+id/textView2"
             app:layout_constraintEnd_toStartOf="@+id/guideline"
-            app:layout_constraintHorizontal_bias="0.6"
+            app:layout_constraintHorizontal_bias="0.595"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline3"
             app:layout_constraintVertical_chainStyle="spread" />
 
         <TextView
@@ -85,11 +84,10 @@
             android:ems="10"
             android:hint="Book ID"
             android:inputType="text"
-            app:layout_constraintBottom_toTopOf="@+id/bookISBN"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.512"
             app:layout_constraintStart_toStartOf="@+id/guideline"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline3"
             app:layout_constraintVertical_chainStyle="spread" />
 
         <EditText
@@ -164,7 +162,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_begin="348dp" />
+            app:layout_constraintGuide_begin="456dp" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline4"
@@ -175,8 +173,8 @@
 
         <FrameLayout
             android:id="@+id/frame1"
-            android:layout_width="359dp"
-            android:layout_height="344dp"
+            android:layout_width="358dp"
+            android:layout_height="250dp"
             android:layout_marginTop="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -186,5 +184,28 @@
 
         </FrameLayout>
 
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="122dp" />
+
+        <FrameLayout
+            android:id="@+id/touchFrame"
+            android:layout_width="409dp"
+            android:layout_height="120dp"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginEnd="1dp"
+            android:layout_marginBottom="1dp"
+            android:background="#B1B1B1"
+            app:layout_constraintBottom_toTopOf="@+id/textView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        </FrameLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+</com.example.myapp.ScrollViewCustom>
