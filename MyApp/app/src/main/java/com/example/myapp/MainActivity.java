@@ -18,6 +18,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -183,10 +184,24 @@ public class MainActivity extends AppCompatActivity {
             public boolean onTouch(View v, MotionEvent event){
                 int motion = event.getActionMasked();
 
+
+
+
                 switch (motion){
                     case MotionEvent.ACTION_DOWN:
                         initial_x = (int) event.getX();
                         initial_y = (int) event.getY();
+                        //print log
+//                        Log.d("MYACTIVITY", initial_x + " " + initial_y);
+                        //touch upper left corner to capitalise author name
+                        if (event.getX() < 400 && event.getY() < 100){
+                            if (motion == MotionEvent.ACTION_DOWN){
+                                bookAuthorStr = bookAuthor.getText().toString();
+                                bookAuthorStr = bookAuthorStr.toUpperCase();
+                                bookAuthor.setText(bookAuthorStr);
+                            }
+                        }
+
                         return true;
                     case MotionEvent.ACTION_MOVE:
                         //swipe left to right to add 1 to price
@@ -207,6 +222,8 @@ public class MainActivity extends AppCompatActivity {
 //                            }
                         }
 
+
+
                         return true;
                     case MotionEvent.ACTION_UP:
                         //swipe right to left to add book
@@ -215,12 +232,19 @@ public class MainActivity extends AppCompatActivity {
                                 showToast();
                             }
                         }
-                        //swipe from bottom to top to clear all the fields
+                        //vertical swipe
                         if (Math.abs(initial_x - event.getX()) < 40){ //buffer for horizontal movement
+                            //swipe from bottom to top to clear all the fields
                             if (initial_y > event.getY()){
                                 clearInput();
                             }
+                            //swipe from top to bottom to close activity
+                            else if (initial_y < event.getY() && initial_x > 400 ){
+                                finish();
+                            }
                         }
+
+
                         return true;
                     default:
                         return false;
