@@ -19,6 +19,7 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -68,6 +69,8 @@ public class MainActivity extends AppCompatActivity {
     int initial_x;  //coordinates
     int initial_y;
 
+    //w11 gesture detector
+    GestureDetector gestureDetector;
 
 
     @Override
@@ -179,78 +182,85 @@ public class MainActivity extends AppCompatActivity {
 
         //w10 touch frame
         touchFrame = findViewById(R.id.touchFrame);
+
+        //w11 gesture detector
+        gestureDetector = new GestureDetector(this, new MyGestureDetector());
+
         touchFrame.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public boolean onTouch(View v, MotionEvent event){
-                int motion = event.getActionMasked();
+            public boolean onTouch(View v, MotionEvent event) {
+                gestureDetector.onTouchEvent(event);
+                return true;
+            }
+        });
 
 
-
-
-                switch (motion){
-                    case MotionEvent.ACTION_DOWN:
-                        initial_x = (int) event.getX();
-                        initial_y = (int) event.getY();
-                        //print log
-//                        Log.d("MYACTIVITY", initial_x + " " + initial_y);
-                        //touch upper left corner to capitalise author name
-                        if (event.getX() < 400 && event.getY() < 100){
-                            if (motion == MotionEvent.ACTION_DOWN){
-                                bookAuthorStr = bookAuthor.getText().toString();
-                                bookAuthorStr = bookAuthorStr.toUpperCase();
-                                bookAuthor.setText(bookAuthorStr);
-                            }
-                        }
-
-                        return true;
-                    case MotionEvent.ACTION_MOVE:
-                        //swipe left to right to add 1 to price
-                        if (Math.abs(initial_y - event.getY()) < 40){ //buffer for vertical movement
-                            if (initial_x < event.getX()){
-                                bookPriceStrVar = bookPrice.getText().toString();
-                                double bookPriceDouble = Double.parseDouble(bookPriceStrVar);
-                                bookPriceDouble++;
-                                bookPriceStrVar = Double.toString(bookPriceDouble);
-                                bookPrice.setText(bookPriceStrVar);
-                            }
-//                            else{   //swipe right to left to minus 1 to price
+        //w10 on touch stuff
+//        touchFrame.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event){
+//                int motion = event.getActionMasked();
+//                switch (motion){
+//                    case MotionEvent.ACTION_DOWN:
+//                        initial_x = (int) event.getX();
+//                        initial_y = (int) event.getY();
+//                        //print log
+////                        Log.d("MYACTIVITY", initial_x + " " + initial_y);
+//                        //touch upper left corner to capitalise author name
+//                        if (event.getX() < 400 && event.getY() < 100){
+//                            if (motion == MotionEvent.ACTION_DOWN){
+//                                bookAuthorStr = bookAuthor.getText().toString();
+//                                bookAuthorStr = bookAuthorStr.toUpperCase();
+//                                bookAuthor.setText(bookAuthorStr);
+//                            }
+//                        }
+//
+//                        return true;
+//                    case MotionEvent.ACTION_MOVE:
+//                        //swipe left to right to add 1 to price
+//                        if (Math.abs(initial_y - event.getY()) < 40){ //buffer for vertical movement
+//                            if (initial_x < event.getX()){
 //                                bookPriceStrVar = bookPrice.getText().toString();
 //                                double bookPriceDouble = Double.parseDouble(bookPriceStrVar);
-//                                bookPriceDouble--;
+//                                bookPriceDouble++;
 //                                bookPriceStrVar = Double.toString(bookPriceDouble);
 //                                bookPrice.setText(bookPriceStrVar);
 //                            }
-                        }
-
-
-
-                        return true;
-                    case MotionEvent.ACTION_UP:
-                        //swipe right to left to add book
-                        if (Math.abs(initial_y - event.getY()) < 40){ //buffer for vertical movement
-                            if (initial_x > event.getX()){
-                                showToast();
-                            }
-                        }
-                        //vertical swipe
-                        if (Math.abs(initial_x - event.getX()) < 40){ //buffer for horizontal movement
-                            //swipe from bottom to top to clear all the fields
-                            if (initial_y > event.getY()){
-                                clearInput();
-                            }
-                            //swipe from top to bottom to close activity
-                            else if (initial_y < event.getY() && initial_x > 400 ){
-                                finish();
-                            }
-                        }
-
-
-                        return true;
-                    default:
-                        return false;
-                }
-            }
-        });
+////                            else{   //swipe right to left to minus 1 to price
+////                                bookPriceStrVar = bookPrice.getText().toString();
+////                                double bookPriceDouble = Double.parseDouble(bookPriceStrVar);
+////                                bookPriceDouble--;
+////                                bookPriceStrVar = Double.toString(bookPriceDouble);
+////                                bookPrice.setText(bookPriceStrVar);
+////                            }
+//                        }
+//                        return true;
+//                    case MotionEvent.ACTION_UP:
+//                        //swipe right to left to add book
+//                        if (Math.abs(initial_y - event.getY()) < 40){ //buffer for vertical movement
+//                            if (initial_x > event.getX()){
+//                                showToast();
+//                            }
+//                        }
+//                        //vertical swipe
+//                        if (Math.abs(initial_x - event.getX()) < 40){ //buffer for horizontal movement
+//                            //swipe from bottom to top to clear all the fields
+//                            if (initial_y > event.getY()){
+//                                clearInput();
+//                            }
+//                            //swipe from top to bottom to close activity
+//                            else if (initial_y < event.getY() && initial_x > 400 ){
+//                                finish();
+//                            }
+//                        }
+//
+//
+//                        return true;
+//                    default:
+//                        return false;
+//                }
+//            }
+//        });
 
     }
 
@@ -278,6 +288,58 @@ public class MainActivity extends AppCompatActivity {
         // tell the OS
         return true;
     }
+
+    //w11 on gesture convenience class
+    class MyGestureDetector extends GestureDetector.SimpleOnGestureListener{
+        @Override
+        public void onLongPress(@NonNull MotionEvent e) {
+            //load saved values
+            reload();
+            super.onLongPress(e);
+        }
+
+        @Override
+        public boolean onScroll(@NonNull MotionEvent e1, @NonNull MotionEvent e2, float distanceX, float distanceY) {
+            //buffer for vertical movement
+            //distanceX = previous e2 - current e2
+            if (distanceY < 40){
+                //scroll left to right to add to price, else decrease price
+                bookPriceStrVar = bookPrice.getText().toString();
+                double bookPriceDouble = Double.parseDouble(bookPriceStrVar);
+                bookPriceDouble = bookPriceDouble - (int)distanceX;
+                bookPriceStrVar = Double.toString(bookPriceDouble);
+                bookPrice.setText(bookPriceStrVar);
+
+            }
+
+
+            return super.onScroll(e1, e2, distanceX, distanceY);
+        }
+
+        @Override
+        public boolean onFling(@NonNull MotionEvent e1, @NonNull MotionEvent e2, float velocityX, float velocityY) {
+            //move the app (activity) to the background
+            if (velocityX>500 || velocityY>500) {//add buffer to distinguish between scroll and fling
+                moveTaskToBack(true);
+            }
+            return super.onFling(e1, e2, velocityX, velocityY);
+        }
+
+        @Override
+        public boolean onDoubleTap(@NonNull MotionEvent e) {
+            //clear all fields
+            clearInput();
+            return super.onDoubleTap(e);
+        }
+
+        @Override
+        public boolean onSingleTapConfirmed(@NonNull MotionEvent e) {
+            //generate random ISBN
+            bookISBN.setText(RandomStringGenerator.generateNewRandomString(8));
+            return super.onSingleTapConfirmed(e);
+        }
+    }
+
 
     //W5 Drawer Buttons
     class MyNavigationListener implements NavigationView.OnNavigationItemSelectedListener {
