@@ -302,7 +302,7 @@ public class MainActivity extends AppCompatActivity {
         public boolean onScroll(@NonNull MotionEvent e1, @NonNull MotionEvent e2, float distanceX, float distanceY) {
             //buffer for vertical movement
             //distanceX = previous e2 - current e2
-            if (distanceY < 40){
+            if (distanceY < 5){
                 //scroll left to right to add to price, else decrease price
                 bookPriceStrVar = bookPrice.getText().toString();
                 double bookPriceDouble = Double.parseDouble(bookPriceStrVar);
@@ -310,6 +310,10 @@ public class MainActivity extends AppCompatActivity {
                 bookPriceStrVar = Double.toString(bookPriceDouble);
                 bookPrice.setText(bookPriceStrVar);
 
+            }
+            else {
+                //scroll up to down to set book title to untitled
+                bookTitle.setText("Untitled");
             }
 
 
@@ -319,7 +323,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public boolean onFling(@NonNull MotionEvent e1, @NonNull MotionEvent e2, float velocityX, float velocityY) {
             //move the app (activity) to the background
-            if (velocityX>500 || velocityY>500) {//add buffer to distinguish between scroll and fling
+            if (velocityX>1000 || velocityY>1000) {//add buffer to distinguish between scroll and fling
                 moveTaskToBack(true);
             }
             return super.onFling(e1, e2, velocityX, velocityY);
